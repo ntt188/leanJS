@@ -98,3 +98,251 @@ Toán tử và kiểu dữ liệu
             undefined
             NaN
             null
+    Làm việc với hàm (function)
+        1. Hàm ?
+            - Một khối mã
+            - làm 1 việc cụ thể
+        2. Loại hàm
+            - Built-in
+            - Tự định nghĩa
+        3. Tính chất
+            - Không thực thi khi định nghĩa
+            - Sẽ thực thi khi được gọi
+            - Có thể nhận tham số
+            - Có thể trả về 1 giá trị
+        4. Tạo hàm đầu tiên
+            tên hàm có thể chứa a-z và A-Z 0-9 _ $ (Lưu ý số ko được dặt đầu tên biến)
+            Định nghĩa:
+                function showDialog() {
+                    //code
+                }
+            Gọi hàm:
+                showDialog();
+            
+        5. Tham số trong hàm
+            1. Tham số
+                - Định nghĩa
+                - Kiểu dữ liệu: Không giới hạn kiểu dữ liệu
+                - Tính private: Biến sử dụng trong function thì chỉ sử dụng trong function
+                - 1 tham số
+                - Nhiều tham số
+            2. Truyền tham số
+                - 1 tham số
+                - Nhiều tham số
+            3. Arguments
+                - Đối tượng arguments
+                - Giới thiệu vòng for of
+                là đối tượng khi hàm ko có tham số truyền vào nhưng khi gọi hàm ta lại truyền tham số cho nó 
+                thì arguments sẽ nhận các giá trị đó.
+
+                VD:
+                    function writeLog() {
+                        var myString = '';
+                        for (var param of arguments){
+                            myString += `${param} - `
+                        }
+                        console.log(myString)
+                    }
+
+                    writeLog('Log1', 'Log2', 'Log3')
+        6. trả về trong function
+            Dùng return trong hàm
+        7. Một số điều cần biết về Hàm  
+            1. Khi function đặt trùng tên: Thì function định nghĩa sau
+                                           ghi đè function trước nên chỉ sử dụng đc function sau
+            2. Khai báo biến trong Hàm: Có thể khai báo biến trong hàm nhưng biến này chỉ sử dụng
+                                        trong function vì có tính private
+            3. Định nghĩa hàm trong hàm: Có thể những khi khai báo trong function thì chỉ được Gọi
+                                         nó trong function đó
+        8. Cái loại function
+            1. Declaration function: có thể gọi ở trước function
+                function showMessage() {}
+            2. Expression function: ko thể gọi trước định nghĩa
+                var showMessage2 = function(){}
+
+                setTimeout(function(){
+
+                });
+
+                var myObject = {
+                myFunction: function() {}
+                }
+            3. Arrow function(Học ở khóa nâng cao)
+    Làm việc với chuỗi 
+        1. Tạo chuỗi
+            - Các cách tạo chuỗi: có 2 cách
+                var fullName = 'Thanh Thang' 
+                var fullName = new String('Thanh Thang')
+            - Nên dùng cách nào? Lý do?
+                Nên sử dụng cách 1 
+            - Kiểm tra data type
+        2. Một số case sử dụng backlash (\n)
+            Để bỏ dấu nháy ở trong chuỗi vd
+                var fullName = 'Thanh Thang la \'Code\''
+        3. Xem độ dài chuỗi            
+            var fullName = 'Thanh Thang'
+            console.log(fullName.length)
+        4. Chú ý độ dài khi viết code
+            Chỉ nên một dòng 80 ký tự
+            có thể sử dụng nối chuỗi
+                var fullName = 'dfgdsgsdfgsdgsdfgsdfgd'
+                                + 'gfdgdfgbsfgrbsbtstbtr'
+                                + 'dfgvbtbtrbtbrbrbsdbrts'
+                                + 'vdfsgbrsgrtgrtb';
+        5. Template string ES6
+            var firstName = 'Thanh';
+            var lastName = 'Thang';
+
+            thay vì ta in ra bằng cách:
+            console.log('Tôi là: '+ firstName + ' ' + lastName);
+
+            thì ta sử dụng:
+            console.log(`Tôi là: ${firstName} ${lastName}`);
+        * Làm việc với chuỗi
+        (Keyword: javascrip string methods)
+            1. Length: Dộ dài chuỗi
+                console.log(myString.length)   
+            2. Find index: tìm kiếm vị trí chuỗi
+                trả về -1 là ko tìm thấy
+                console.log(myString.indexOf('JS'))
+                trả về giá trị lơn hơn hoặc = 0 là có tồn tại
+                
+                thêm vị trí bạn muốn tìm kiếm
+                console.log(myString.indexOf('JS',7))
+
+                Tìm kiếm chuỗi JS cuối cùng
+                console.log(myString.lastIndexOf('JS'))
+
+                Có thể thay indexOf bằng Search
+            3. Cut string: tách chuỗi
+                console.log(myString.slice(4,6))
+                muốn căt từ vị trí đến cuối thì vất tham số sau
+
+            4. Replace: Ghi đè giá trị
+                console.log(myString.replace('JS','Javascrip'))
+
+                Ghi đè tất cả các chuối JS trong chuỗi
+                console.log(myString.replace(/JS/g,'Javascrip'))
+            5. Convert to upper case: Chuyển đổi thành chữ hoa
+                console.log(myString.toUpperCase())
+            6. Convert to lowẻ case: Chuyển đổi thành chữ thường
+                console.log(myString.toLowerCase())
+            7. Trim: Loại bỏ các ký tự trắng thừa ở đầu và cuối
+                console.log(myString.trim())
+            8. Split: Cắt một chuỗi thành array
+                var languages = 'Javascrip, PHP, Ruby';
+                console.log(languages.split(', '))
+                thêm điểm chung trong chuổi để cắt
+            9. Get a character by index: lấy ký tự từ một vị trí cho trước
+                console.log(myString.charAt(3))
+    Làm việc với số
+        Kiểu dữ liệu số
+            Number.isFiite()                   Xác định xem giá trị đã cho có phải là số hữu hạn hay không. Trả về boolean
+                Number.isFinite(2 / 0); // false
+                Number.isFinite(20 / 5); // true
+                Number.isFinite(0 / 0); // false
+            Number.isInteger()                  Xác định xem giá trị đã cho có phải là số nguyên hay không. Trả về boolean
+                Number.isInteger(999999999); // true
+                Number.isInteger(0.2);       // false
+                Number.isInteger(Math.PI);   // false
+            Number.parseFloat()                 Chuyển đổi chuỗi đã cho thành một số dấu phẩy động
+                Number.parseFloat('10') // 10
+                Number.parseFloat('10.00') // 10
+                Number.parseFloat('238,21') // 238
+                Number.parseFloat('237.22') // 237.22
+                Number.parseFloat('34 56 78') // 34
+                Number.parseFloat(' 37 ') // 37
+                Number.parseFloat('18 is my age') // 18
+            Number.parseInt()                   Chuyển đổi chuỗi đã cho thành một số nguyên
+                Number.parseInt('10') // 10
+                Number.parseInt('10.00') // 10
+                Number.parseInt('238,21') // 238
+                Number.parseInt('237.22') // 237
+                Number.parseInt('34 56 78') // 34
+                Number.parseInt(' 37 ') // 37
+                Number.parseInt('18 is my age') // 18
+            Number.prototype.toFixed()          Chuyển đổi và trả về chuỗi đại diện cho số đã cho, có số chữ số chính xác sau dấu thập phân
+                var numberObject = 1234.56789;
+
+                numberObject.toFixed(); // '1235'
+                numberObject.toFixed(1); // '1234.6'
+                numberObject.toFixed(6); // '1234.567890'
+            Number.prototype.toString()         Chuyển đổi và trả về số đã cho dưới dạng chuỗi
+                (11).toString();    // '11'
+                (18).toString();     // '18'
+                (17.3).toString();   // '17.3'
+        Số và làm việc với số
+            1. Tạo các giá trị number
+                các cách tạo: có 2 cách
+                    var age = 20;
+                    var otherNumber = new Number(9);
+                Dùng cách nào? dùng cách 1. Tại sao? đỡ rườm rà
+                Kiểm tra datatype
+                    var age = 20;//number
+                    var otherNumber = new Number(9);//object
+                Nếu tạo ra số ko họp lệ thì giá trị trả về sẽ là NaN thì ta có hàm kiểm tra giá trị đó có phải NaN ko là
+                    var result = 20 / 'ABC'
+                    console.log(isNaN(result))
+            2. Làm việc với number
+                //Keyword: Javascrip number methods
+                To string: chuyển đổi number thành String
+                    number.toString
+                To Fixed: Muốn làm tròn số thập phân
+                    var PI = 3.14
+                    PI.toFixed()// nếu ko truyền vào số thì làm tròn hết và kiểu dữ liệu trả về của nó là String
+    Làm việc với mảng
+        Mảng (array)
+            1. Tạo mảng
+                Cách tạo
+                    var languages = [
+                        'javascrip',
+                        'PHP',
+                        'Ruby',
+                    ];
+                    console.log(languages)
+
+                    Kiểm tra có phải array 
+                        Array.isArray([mảng])
+                Sử dụng cách nào? Tại sao?
+                Kiểm tra data type?
+            2. Truy xuất mảng
+                Độ dài mảng 
+                    languages.length
+                Lấy phần tử theo index    
+                    languages[2]
+        Làm việc với mảng
+        //Keyword: javascrip array methods
+            var languages = [
+                    'Javascrip',
+                    'PHP',
+                    'Ruby'
+                ]
+            var languages2 = [
+                    'Dart',
+                    'Ruby'
+                ]
+            1. To string: chuyển thành string
+                languages.toString()
+            2. Join: thành một chuỗi như toString
+                languages.join()
+                Nhưng vs join có thể thay thế dấu nối bằng cách truyền pram trong join
+                languages.join(' - ')
+            3. Pop: xóa phần tử cuối Mảng và trả về phần tử đã xóa
+                languages.pop()
+            4. Push: Thêm phần tử ở cuối Mảng và trả về giá trị độ dài mảng mới
+                languages.push('Dart') 
+                có thể thêm nhiều phần tử
+                languages.push('Dart','Java') 
+            5. Shift: ngược lại với Pop là xóa ở đầu và trả về phần tử đã xóa
+                languages.shift()
+            6. UnShift: ngược lại vs push là thêm 1 hoặc nhiều phần tử ở đầu mảng và trả về độ dài mới
+                languages.unShift('Dart')
+            7. Splicing: Xóa hoặc cắt hoặc chèn
+                Xóa
+                    languages.splice(1,1) //xóa từ vị trí số 1 xóa 1 phần tử
+                Chèn 
+                    languages.splice(1,0,'Dart') //từ vị trí 1 ko xóa vị trí nào và thêm 'Dart' vào vị trí 1
+            8. Concat: Nối được array
+                languages.concat(languages2)
+            9. Slicing: Căt lấy 1 vài element
+                languages.slice(1, 2)//Cắt từ vị trí 1 đến vị trí 2
