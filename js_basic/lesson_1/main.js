@@ -43,3 +43,11 @@
 
 var number = '20';
 console.log(Number.isFinite(number) || Number.isInteger(number))
+
+var arr = [
+    'JS',
+    'PHP',
+    'Python'
+]
+
+console.log(arr.length);
