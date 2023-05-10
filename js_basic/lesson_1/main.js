@@ -51,3 +51,12 @@ var arr = [
 ]
 
 console.log(arr.length);
+
+var number = {};
+// console.log(typeof number);
+// if(typeof number === 'number') {
+//     console.log(1);
+// }else console.log(0);
+number.name = 'NAME';
+number.age = 18;
+console.log(number)

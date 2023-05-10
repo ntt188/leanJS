@@ -487,7 +487,20 @@ Toán tử và kiểu dữ liệu
                             }
                         ]
                     }
-                ]
+                ];
+                var newCourses = topics.reduce(function (courses, topic) {
+                    return courses.concat(topic.courses);
+                }, []);
+                console.log(newCourses);
+                var htmls = newCourses.map(function(course){
+                    return `
+                        <div>
+                            <h2>${course.title}</h2>
+                            <p>ID: ${course.id}</p>
+                        </div>
+                    `;
+                });
+                console.log(htmls.join(''));
     Làm việc object
         var myInfo = {
             name: 'Thanh Thang',        //gồm key và giá trị nếu muốn key có kiểu full-name thì thêm dấu 'full-name'
