@@ -60,3 +60,29 @@ var number = {};
 number.name = 'NAME';
 number.age = 18;
 console.log(number)
+
+Array.prototype.myMap = function(cb) {
+    var output = [], lengthArr = this.length;
+
+    for (var i = 0; i < lengthArr; i++){
+        var tam = cb(this[i], i);
+        output.push(tam);
+    }
+
+    return output;
+}
+
+// Expected results
+const numbers = [1, 2, 3];
+
+console.log(numbers.myMap(function (number) {
+    return number * 2;
+})) 
+// Output: [2, 4, 6]
+
+console.log(numbers.myMap(function (number, index) {
+    return number * index;
+})) 
+// Output: [0, 2, 6]
+
+

@@ -60,6 +60,7 @@ Toán tử và kiểu dữ liệu
                 var lastName = 'Thang'
                 // In ra firstName và lastName cùng 1 dòng
                 console.log(firstName + ' ' + lastName)
+
     Kiểu dữ liệu    
         1. Kiểu dữ liệu nguyên thủy - primitive data
                                     Ví dụ
@@ -90,6 +91,7 @@ Toán tử và kiểu dữ liệu
             vd: var a = 5
                 console.log(typeof a) 
                 "giá trị in ra là number"
+
     Câu lệnh điều kiện if-else
         Có 6 giá trị khi bỏ vào câu lệnh if thì đc biết conver qua kiểu dự liệu boolean là false còn lại là true:
             0
@@ -98,6 +100,7 @@ Toán tử và kiểu dữ liệu
             undefined
             NaN
             null
+
     Làm việc với hàm (function)
         1. Hàm ?
             - Một khối mã
@@ -168,6 +171,7 @@ Toán tử và kiểu dữ liệu
                 myFunction: function() {}
                 }
             3. Arrow function(Học ở khóa nâng cao)
+    
     Làm việc với chuỗi 
         1. Tạo chuỗi
             - Các cách tạo chuỗi: có 2 cách
@@ -235,6 +239,7 @@ Toán tử và kiểu dữ liệu
                 thêm điểm chung trong chuổi để cắt
             9. Get a character by index: lấy ký tự từ một vị trí cho trước
                 console.log(myString.charAt(3))
+
     Làm việc với số
         Kiểu dữ liệu số
             Number.isFiite()                   Xác định xem giá trị đã cho có phải là số hữu hạn hay không. Trả về boolean
@@ -290,6 +295,7 @@ Toán tử và kiểu dữ liệu
                 To Fixed: Muốn làm tròn số thập phân
                     var PI = 3.14
                     PI.toFixed()// nếu ko truyền vào số thì làm tròn hết và kiểu dữ liệu trả về của nó là String
+
     Làm việc với mảng
         Mảng (array)
             1. Tạo mảng
@@ -501,6 +507,7 @@ Toán tử và kiểu dữ liệu
                     `;
                 });
                 console.log(htmls.join(''));
+
     Làm việc object
         var myInfo = {
             name: 'Thanh Thang',        //gồm key và giá trị nếu muốn key có kiểu full-name thì thêm dấu 'full-name'
@@ -601,6 +608,7 @@ Toán tử và kiểu dữ liệu
             Math.min()  //Con số nhỏ nhất
                 console.log(Math.min(-100, 1, 30, 200))
             Math.max()  //Con số lớn nhất
+
     Lệnh rẽ nhánh và toán tử 3 ngôi
         Lệnh rẽ nhánh If else
         Lệnh rẽ nhánh switch
@@ -633,6 +641,7 @@ Toán tử và kiểu dữ liệu
             //Nêu ta dùng toán tử 3 ngôi
             var result = course.coin > 0 ? `${course.coin} Coin` : 'Miễn phí';
             console.log(result);
+
     Vòng lặp
         1. for - Lặp với điều kiện đúng
             for(var i = 1; i <= 10 ; i++){
@@ -749,3 +758,115 @@ Toán tử và kiểu dữ liệu
                     }
 
                     countDown(10);
+
+Callback
+    Là hàm(function) được truyền qua một đối số khi gọi hàm khác:
+    1. Là hàm
+    2.Được truyền qua 1 đối số
+
+    function myFunction(param) {
+        //kiểm tra đối số truyền vào có phải function nếu ko phải thì sẽ lỗi
+        if(typeof param === 'function') {
+            param('Học lập trình');
+        }
+    }
+
+    function myCallBack(value) {
+        console.log('value: ',value)
+    }
+
+    myFunction(myCallBack);
+    //vậy Callback là 1 hàm được gọi trong 1 hàm khác
+
+    Phần 2
+        //Là Hàm
+        //Truyền qua đối số
+        //Được gọi lại (trong hàm nhận đối số)
+        //Tạo hàm map
+        Array.prototype.myMap = function(cb) {
+        var output = [], lengthArr = this.length;
+
+        for (var i = 0; i < lengthArr; i++){
+            var tam = cb(this[i], i);
+            output.push(tam);
+        }
+
+        return output;
+        }
+
+        // Expected results
+        const numbers = [1, 2, 3];
+
+        console.log(numbers.myMap(function (number) {
+            return number * 2;
+        })) 
+        // Output: [2, 4, 6]
+
+        console.log(numbers.myMap(function (number, index) {
+            return number * index;
+        })) 
+        // Output: [0, 2, 6]
+        //Tạo phương thức myEvery như every
+        Array.prototype.myEvery = function(cb) {
+        for(var index in this) {
+            if(this.hasOwnProperty(index)){
+                if(!cb(this[index],index,this)){
+                    return false;
+                }
+            }
+        }
+        return true;
+        }
+
+
+        // Expected results
+
+        // const numbers = [1, 3, 3, 5];
+
+        // console.log(numbers.myEvery(function (number) {
+        //     return number % 2 !== 0;
+        // })); // Output: true
+
+        // console.log(numbers.myEvery(function (number, index) {
+        //     return index % 2 === 0;
+        // })); // Output: false
+
+        // console.log(numbers.myEvery(function (number, index, array) {
+        //     return array.length % 2 === 0;
+        // })); // Output: true
+
+HTML DOM
+    
+    //3 thành phần chính
+    //1. Element: các thẻ trong HTML
+    //2. Attribute: các thuộc tính trong thẻ
+    //3. Text: các value trong thẻ
+
+
+    //1. Element: ID, class, Tag, CSS selector, HTML collection
+        document.getElementById(''); //Trả về một element
+        document.getElementsByClassName(''); //Trả về số nhiều HTMLColection
+        document.getElementsByTagName(''); //Trả về số nhiều HTMLColection
+        document.querySelector(''); //Trả về một element
+        document.querySelectorAll(''); //Trả về số nhiều NodeList
+    //2. Attribute: Thêm, sửa, xóa
+        //Có 2 cách: truy suất trực tiếp qua element hoặc qua hàm (setAttribute và getAttribute)
+        var headingElement = document.querySelector('h1');
+        //Với truy xuất trực tiếp thì chỉ truy xuất đc các Attribute thuộc element đó
+            headingElement.title = 'Title Text';
+            console.log(headingElement.title);
+        //Với hàm thì ta có thể thêm các thuộc tính khác ngoài của element đó
+            headingElement.setAttribute('data-1','data một');
+            console.log(headingElement.getAttribute('data-1'));
+    //3. Text: innerText, textContent
+        //innerText: trả về giá trị giống trên trình duyệt
+        //textContent: trả về giá trị nguyên bản mà code làm ra
+        var headingElement = document.querySelector('h1');
+
+        //Lấy ra
+            console.log(headingElement.innerText);
+            //hoặc
+            console.log(headingElement.textContent);
+        //sửa
+            headingElement.innerText = "Heading Text";
+            headingElement.textContent = "Heading Text";
