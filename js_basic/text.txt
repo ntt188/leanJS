@@ -870,3 +870,5 @@ HTML DOM
         //sửa
             headingElement.innerText = "Heading Text";
             headingElement.textContent = "Heading Text";
+    //Node properties
+        
