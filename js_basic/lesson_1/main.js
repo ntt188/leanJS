@@ -86,3 +86,12 @@ console.log(numbers.myMap(function (number, index) {
 // Output: [0, 2, 6]
 
 
+const a = {
+    hl: 'hello'
+}
+
+let b = a;
+b.hl = 'world';
+console.log(a);
+console.log(b);
+
