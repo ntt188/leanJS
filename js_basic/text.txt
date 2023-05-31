@@ -1037,5 +1037,248 @@ HTML DOM
         //Thực hành, ví dụ
 
         // Sync / Async
+
+        //Khi in ra theo thứ tự code từ trên xuống là đông bộ
         console.log(1);
         console.log(2);
+
+        //Những với trường hợp này là bất đồng bộ(Async )
+        //Viết trước chưa chắc xong trước
+        //Những hàm bất dồng bộ trong trong javascrip: setTimeout, setInterval, fetch, XMLHttpRequest,
+        //file reading, request animation frame
+
+        //javascrip có thuật ngữ Callback để xử lý bất đồng bộ
+
+        setTimeout(function(){
+            console.log(1);
+        },1000);
+        console.log(2);
+
+        //Promise (pain):Nỗi đau
+            //Callback hell
+            //Pyramid of doom
+        
+        //lý thuyết, cách hoạt động
+        //là một object constructor đối tượng Promise, truyền vào param là 1 function và function đó đc gọi là 
+        //Executor là function sẽ đc thực thi khi gọi tới đối tượng Promise và function này luôn được gọi trước 
+        //cả giả trị được gán.
+        //và Executor này đều trả về 2 tham số(param) là 2 function resolve(thành công) và reject(thất bại)
+        //Các bước
+            //1. new Promise
+            //2. Executor
+        
+        //promise có 3 trạng thái
+            //1. pending
+            //2. fulfilled
+            //3. rejected
+        var promise = new Promise(
+            //Executor
+            function(resolve, reject) {
+                //Logic
+                //Thành công: resolve()
+                //Thất bại: reject()
+                resolve
+            }
+        );
+        //và nó trả về 3 phương thức thường sử dụng
+        /*promise
+            .then(function() {
+
+            })
+            .catch(function() {
+
+            })
+            .finally(function() {
+
+            });
+        */
+        //promise là khái niệm sinh ra để xử lý bất đồng bộ. Trước khi có promise thì ta phải xử lý Callback
+        //và call bách xảy ra vấn đề là Callback hell nó xe bị sâu vào khó nhìn khó hiểu.
+        //nên thằng promise được sinh ra ở bản javascrip mới hơn trong phiên bản es6. và chúng ta có thể dùng để
+        //khắc phục Callback hell để giúp chúng ta viết code đỡ sâu và dễ hiểu hơn.
+        //để tạo ra promise thì ta dùng từ khóa new Promise và trong constructor ta truyền vào một Executor function
+        //trong Executor function nhận đc 2 tham số 1 là resolve(gọi khi thành công) 2 là reject(gọi khi thất bại)
+        //khi sử dụng promise thì đối tượng promise được tạo ra chúng ta sẽ sử dụng qua phương thức .then() Khi 
+        //promise được resolve và .catch() khi promise được reject
+
+        //promise làm theo tuần tự string là từ trên xuống 
+        //VD
+        //nêu phương thức then() trước trả về(return) về một giá trị nào đó thì then() sau nó nhận được chính tham 
+        //số trả về đó và thực thi liền then() sau. còn nếu then() trước trả về(return) một promise mới thì then()
+        //sau phải chờ then() trước thực thi xong ms được thực thi.
+        promise
+            .then(function() {
+                return new Promise(function(resolve){
+                    setTimeout(function() {
+                        resolve([1,2,3]);
+                    }, 3000);
+                })
+            })
+            .then(function(data) {
+                console.log(data);
+            })
+            .catch(function() {
+
+            })
+            .finally(function() {
+
+            });
+        
+        //Áp dụng vào bài toán cứ sau 1s thì in ra lân lượt 1, 2, 3, ...
+        function sleep(ms) {
+            return new Promise((resolve) => {
+                setTimeout(resolve, ms)
+            });
+        }
+
+        sleep(1000)
+                .then(function() {
+                    console.log(1);
+                    return sleep(1000);
+                })
+                .then(function() {
+                    console.log(2);
+                    return sleep(1000);
+                })
+                .then(function() {
+                    console.log(3);
+                    return sleep(1000);
+                })
+        //promise methods(resolve,reject,all)
+            //bắt lỗi reject được hiểu đơn giản là khi một promise bị reject thì các then() bị ngắt không đc thực thi
+            //VD
+            sleep(1000)
+                    .then(function() {
+                        console.log(1);
+                        return sleep(1000);
+                    })
+                    .then(function() {
+                        console.log(2);
+                        return new Promise(function(resolve,reject){
+                            reject("có lỗi");
+                        });
+                    })
+                    .then(function() {
+                        console.log(3);
+                        return sleep(1000);
+                    })
+                    .catch(function(err){
+                        console.log(err);
+                    }) ;
+            //theo vd trên thì khi in ra 1 và 2 thì gặp lỗi thì sẽ bỏ qua việc in 3 mà nhảy xuống phương thức catch()
+            //và trả về lỗi
+            //1. Promise.resolve: chỉ dùng khi bạn chắc chắn promise chỉ trả về resolve
+            var promiseResolve = Promise.resolve('Success');
+            promiseResolve
+                .then(function(result) {
+                    console.log('result: ', result);
+                })
+                .catch(function(err) {
+                    console.log('Error: ', err);
+                });
+            //100% chỉ thực thi .then(), .catch() chỉ thực thi khi trong .then() trả về một promise reject
+            //2. Promise.reject: chỉ dùng khi bạn chắc chắn promise chỉ trả về reject
+            var promiseReject = Promise.reject('Error');
+            promiseReject
+                .then(function(result) {
+                    console.log('result: ', result);
+                })
+                .catch(function(err) {
+                    console.log('Error: ', err);
+                });
+            //100% chỉ thực thi .catch()
+            //3. Promise.all: dùng khi bạn muốn 2 hoặc nhiều promise chạy cùng lúc ko cần đợi promise khác chạy xong
+              //mới thực thi đỡ phải mất thêm time chờ đợi.
+            VD:
+            var promise1 = new Promise(
+                function(resolve) {
+                    setTimeout(function() {
+                        resolve([1]);
+                    },2000);
+                }
+            );
+            var promise2 = new Promise(
+                function(resolve) {
+                    setTimeout(function() {
+                        resolve([2, 3]);
+                    },2000);
+                }
+            );
+            Promise.all([promise1,promise2])
+                .then(function(result) {
+                    var result1 = result[0];
+                    var result2 = result[1];
+                    console.log(result1.concat(result2));
+                });
+            //thì chỉ mất 5s để chạy 2 tiến trình thay vì mất đến 7s nếu làm từng cái một
+        //promise example
+            //bài toán xử lý trong phần comment một bài viết
+            var users = [
+                {
+                    id: 1,
+                    name: "Thanh Thang"
+                },
+                {
+                    id: 2,
+                    name: "Son Dang"
+                },
+                {
+                    id: 3,
+                    name: "Thanh Thua"
+                }
+            ];
+
+            var comments = [
+                {
+                    id: 1,
+                    user_id: 1,
+                    content: "ra video di"
+                },
+                {
+                    id: 2,
+                    user_id: 2,
+                    content: "ra roi ra roi"
+                }
+            ];
+
+            //1. lấy comment
+            //2. từ comment lấy ra user_id,
+            //từ user_id lấy ra user tương ứng
+
+            //fake AIP (mô phỏng hàm thực hiện gọi qua thằng back-end trả về dừ liệu)
+            function getComments() {
+                return new Promise((resolve, reject) => {
+                    setTimeout(() => {
+                        resolve(comments);
+                    },1000);
+                });
+            }
+
+            function getUsersByIds(userIds) {
+                return new Promise((resolve) {
+                    var result = users.filter((user) => {
+                        return userIds.includes(user.id)
+                    });
+                    setTimeout(() => {
+                        resolve(resolve);
+                    },1000);
+                });
+            }
+
+            getComments()
+                .then((comments) => {
+                    var userIds = comments.map((comment) => {
+                        return comment.user_id;
+                    });
+
+                    return getUsersByIds(userIds)
+                            .then((users) => {
+                                return {
+                                    users: users,
+                                    comments: comments
+                                };
+                            });
+                })
+                .then((data){
+                    console.log(data);
+                });
