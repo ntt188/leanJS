@@ -1280,5 +1280,68 @@ HTML DOM
                             });
                 })
                 .then((data){
-                    console.log(data);
+                    var commentBlock = document.getElementById('comment-block');
+
+                    var html = '';
+                    data.comments.forEach((comment) => {
+                        var user = data.users.find((user) {
+                            return user.id === comment.user_id;
+                        });
+                        html += '<li>${user.name}: ${comment.content}</li>';
+                    });
+
+                    commentBlock.innerHTML = html;
                 });
+            //Tạo 1 thẻ ul trong file html để nhận các giá trị
+            /*
+                <ul id="comment-block"></ul>
+            */
+    
+    //Fetch
+        //Dùng để gọi API từ lưu trữ back-end để trình chiếu lên Front-end
+        //API(url) -> application programing interface (Cổng giao tiếp các phần mềm)
+
+        //Back-end -> API(URL) -> Fetch -> JSON/XML
+        //-> JSON.parse -> javascrip types
+        //-> render ra giao diện với HTML
+
+        //cách sử dụng
+        var postAPI='https://jsonplaceholder.typicode.com/posts';
+        fetch(postAPI)
+            .then((response) => {
+                return response.json();
+                //hàm này thực hiện JSON.parse: JSON ->javascrip types
+            })
+            .then((posts) {
+                //console.log(posts);
+                //xử lý hiển thị lên giao diện
+                //đầu tiên tạp ra một mảng mới chứa thêm các thẻ html
+                var htmls = posts.map((post) => {
+                    return `<li>
+                        <h2>${post.title}</h2>
+                        <p>${post.body}</p>
+                    </li>
+                    `;
+                });
+
+                //khi có mảng mới ta chuyển mảng đó thành một chuỗi ko ngăn cách
+                var html = htmls.join('');
+                document.getElementById('post-block').innerHTML = html;
+            });
+            //Tạo một thẻ ul có id post-block
+            //<ul id="post-block"></ul>
+        
+        //JSON server: fake api server / MOCK API
+            //coi tại link
+            //https://fullstack.edu.vn/learning/javascript-co-ban?id=5d91ae2c-f665-4b2c-8c8e-11d7f9a6eac9
+            //khởi động api fake dùng "npm start"
+        
+        //CRUD
+            //-creat: Tạo mới       -> POST 
+            //-read: Lấy dữ liệu    -> GET 
+            //-Update: Chỉnh sửa    -> PUT / PATCH
+            //-Delete: Xóa          -> DELETE
+            //search cách sử dụng fetch tùy trường hợp CRUD: fetch w3, fetch mozilla
+        //Sử dụng Postman làm việc với REST API
+        //Postman mô phỏng và test fake api cho trình duyệt
+            //https://fullstack.edu.vn/learning/javascript-co-ban?id=61546753-d397-43ef-b948-ec7f3b3fd880
