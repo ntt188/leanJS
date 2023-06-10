@@ -1345,3 +1345,186 @@ HTML DOM
         //Sử dụng Postman làm việc với REST API
         //Postman mô phỏng và test fake api cho trình duyệt
             //https://fullstack.edu.vn/learning/javascript-co-ban?id=61546753-d397-43ef-b948-ec7f3b3fd880
+//ECMAScrip 6+
+    //1. let, const
+    //2. Template Literals
+    //3. Multi-line String
+    //4. Arrow function
+    //5. Classes
+    //6. Enhanced object literals
+    //7. Default parameter value 
+    //8. Destructuring 
+    //9. Rest parameters
+    //10. Spread
+    //11. Tagged Template literal
+    //12. Modules
+
+    //1
+        // 1. Var / let, const: Scope, Hosting
+        // 2. Const / var, let: Assignment
+
+        // Code block: if else, loop, {}, ...
+        // var có thể gọi bên trong scope và bên ngoài scope nhưng let và const chỉ gọi bên trong scope
+        // var hỗ trợ hosting những 2 thằng kia ko hỗ trợ
+
+        // const ko thể gán lại được nhưng thuộc tính của nó thì có thể
+
+        //code thuần: Var
+        //babel: let, const
+        //-Khi định nghĩa biến và không gán lại biến đó: Const
+        //-Khi cần gán lại cho biến: Let
+        if (true) {
+            var course = 'javascrip'
+        }
+    //2.
+        const courseName = 'Javascrip';
+        const courseName2 = 'PHP';
+        // nếu  ko dùng es6:const description = 'course name: ' + courseName;
+        // ES6: 
+            const description = `course name: ${courseName} ${courseName2}`;
+            //nếu muốn thêm ký tự đặc biệt bên trong thì thêm dấu \ trước ký tự đặc biệt
+    //3.
+        //ko dùng
+        const lines = 'Line 1\nLine 2';
+        const.log(lines);
+        //có dùng
+        const lines = `Line 1
+        Line 2
+        Line 3`;
+        const.log(lines);
+    //4.
+        //ko dùng
+        const sum = function(a,b) {
+            return a + b;
+        }
+        //có dùng
+        const sum = (a,b) => a + b;
+        //ko thể dùng là constructor function
+    //5. 
+        //đơn giản là cách viết khác của constructor function
+        /*
+            function Course(name, price) {
+                this.name = name;
+                this.price = price;
+
+                this.getName = () => this.name;
+            }
+        */
+
+        class Course {
+            constructor(name, price) {
+                this.name = name;
+                this.price = price;
+            }
+
+            getName() {
+                return this.name;
+            }
+
+            getPrice() {
+                return this.price;
+            }
+
+            run() {
+                const isSuccess = false;
+
+                if(...) {
+                    isSuccess = true;
+                }
+            }
+        }
+
+        const
+    //6.
+        //1. Định nghĩa key: value cho object
+        //2. Định nghĩa method cho object
+        //3. Định nghĩa key cho object dưới dạng biến
+
+        var name = 'JavaScrip';
+        var price = 1000;
+
+        /*
+            var course = {
+                name: name,
+                price: price,
+                getName: function() {
+                    return name;
+                }
+            }
+        */
+        //ES6
+            var course = {
+                name,
+                price,
+                getName() {
+                    return name;
+                }
+            }
+        
+        var fieldName = 'name';
+        var fieldPrice = 'price';
+
+        const course = {
+            [fieldName]: 'javascrip',
+            [fieldPrice]: 1000
+        }
+    //7.
+        //khi ko truyền giá trị(param) thì chúng ta phải tạo giá trị mặc định cho hàm
+        /*
+            function logger(log) {
+                if(typeof log === 'undefined') {
+                    log = 'giá trị mặc định';
+                }
+                console.log(log);
+            }
+            logger(undefined);
+        */
+        //Với ES6
+            function logger(log = 'giá trị mặc định') {
+                console.log(log);
+            }
+            logger(undefined);
+    //8.
+        //Phân rã
+
+        var array = ['javascrip', 'PHP', 'Ruby'];
+
+        /*
+            var a = array[0];
+            var b = array[1];
+            var c = array[2];
+        */
+        //ES6
+            var [a,b,c] = array;
+
+            console.log(a,b,c);
+
+            var course = {
+                name: 'javascrip',
+                price: 1000,
+                img: 'image-address',
+                children: {
+                    name: 'ReactJS'
+                }
+            }
+
+            var {name: parentName, children: {name}} = course;
+            console.log(parentName);
+            console.log(name);
+    //9.
+        //cũng như 8 nhưng lấy ra những thằng con lại
+        var [a, ...rest] = array;
+
+        console.log(a);
+        console.log(rest);
+
+        var {name, ...rest} = course;
+        console.log(rest);
+
+        //ta cũng có thể tạo hàm truyền nhiều tham số  cùng kiểu bằng rest
+        function logger(...param){
+
+        }
+    //10.
+        //Nối thêm dữ liệu khác vs rest là lấy các phần từ còn lậy thì Spread
+    //Babel
