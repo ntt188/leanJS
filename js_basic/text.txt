@@ -1527,4 +1527,27 @@ HTML DOM
         }
     //10.
         //Nối thêm dữ liệu khác vs rest là lấy các phần từ còn lậy thì Spread
+    //11.
+        function highlight(...rest) {
+            console.log(rest);
+        }
+        var brand = 'f8';
+        var course = 'javascrip';
+        highlight `Học lập trình ${course} tại ${brand}!`;
+    //12.
+        //Import/ Export
+        //mỗi Modules chỉ có một export default nhưng lại có thể có nhiều export thường và export sẽ được nhận lại bằng Destructuring
+        /*
+            Nếu ta import bằng 
+                import logger from './logger.js';
+            thì là ta đang import của export default
+
+            Nếu ta import bằng Destructuring
+                import {
+                    TYPE_LOG,
+                    TYPE_WARN,
+                    TYPE_ERROR
+                } from './constants.js';
+            thì là ta đang import của export thường
+        */
     //Babel
