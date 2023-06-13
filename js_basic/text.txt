@@ -1358,6 +1358,7 @@ HTML DOM
     //10. Spread
     //11. Tagged Template literal
     //12. Modules
+    //13. Optional chaining (?.)
 
     //1
         // 1. Var / let, const: Scope, Hosting
@@ -1550,4 +1551,6 @@ HTML DOM
                 } from './constants.js';
             thì là ta đang import của export thường
         */
+    //13. 
+        //dùng để check khi ko chắc chắn 1 cái key nào đó có tồn tại hay ko
     //Babel
