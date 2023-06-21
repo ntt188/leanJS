@@ -1554,3 +1554,4 @@ HTML DOM
     //13. 
         //dùng để check khi ko chắc chắn 1 cái key nào đó có tồn tại hay ko
     //Babel
+//Polyfill?
