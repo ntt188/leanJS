@@ -1528,6 +1528,34 @@ HTML DOM
         }
     //10.
         //Nối thêm dữ liệu khác vs rest là lấy các phần từ còn lậy thì Spread
+        //Chẳng hạn như nối mảng hay object
+        //VD:
+            var arr1 = ['java', 'PHP'];
+            var arr2 = ['C', 'javascrip', 'python'];
+            var arr3 = [...arr1, ...arr]
+            console.log(arr3);
+
+            var obj1 = {
+                name: 'javascrip'
+            }
+            var obj2 = {
+                price: 1000;
+            }
+            var obj3 = {
+                ...obj1,
+                ...obj2
+            }
+
+            var array = ['javascrip', 'PHP', 'Ruby'];
+
+            function logger(...rest) //đây là rest
+            { 
+                for(var i = 0; i < rest.length; i++) {
+                    Console.log(rest[i]);
+                }
+            }
+
+            logger(...array) //Đây là Spread
     //11.
         function highlight(...rest) {
             console.log(rest);
@@ -1537,6 +1565,7 @@ HTML DOM
         highlight `Học lập trình ${course} tại ${brand}!`;
     //12.
         //Import/ Export
+        //tại thẻ script thêm type = 'modul'thì ms dùng đc
         //mỗi Modules chỉ có một export default nhưng lại có thể có nhiều export thường và export sẽ được nhận lại bằng Destructuring
         /*
             Nếu ta import bằng 
