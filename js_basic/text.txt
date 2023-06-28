@@ -1093,7 +1093,7 @@ HTML DOM
             });
         */
         //promise là khái niệm sinh ra để xử lý bất đồng bộ. Trước khi có promise thì ta phải xử lý Callback
-        //và call bách xảy ra vấn đề là Callback hell nó xe bị sâu vào khó nhìn khó hiểu.
+        //và call bách xảy ra vấn đề là Callback hell nó sẻ bị sâu vào khó nhìn khó hiểu.
         //nên thằng promise được sinh ra ở bản javascrip mới hơn trong phiên bản es6. và chúng ta có thể dùng để
         //khắc phục Callback hell để giúp chúng ta viết code đỡ sâu và dễ hiểu hơn.
         //để tạo ra promise thì ta dùng từ khóa new Promise và trong constructor ta truyền vào một Executor function
