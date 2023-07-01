@@ -42,3 +42,57 @@
     6. setInterval(function () {
             console.log('Day là log ')
         }, 1000)
+# Toán tử và kiểu dữ liệu
+- **"lesson_1"**
+- Toán tử trong javascrip:
+    1. Toán tử số học - Arithmetic
+        - +, - , *, /, %, ++, --, **
+        - trong đó: ** là lũy thừa
+    2. Toán tử gán - Assignment
+        ```
+            Toán tử     Ví dụ       Tưởng đường
+            =           x=y         x=y
+            +=          x+=y        x = x + y
+            -=          x-=y        x = x - y
+            *=          x*=y        x = x * y
+            /=          x/=y        x = x / y
+            **=         x**=y       x = x ** y
+        ```
+        - vd: var fullName = 'Thanh Thắng';
+    3. Toán tử so sánh - Comparison : luôn trả về kiểu boolean
+        ```
+            ==      -->     Bắng
+            !=      -->     Không bằng
+            >       -->     Lớn hơn
+            <       -->     Nhỏ hơn
+            >=      -->     Lớn hơn hoặc băng
+            <=      -->     Nhỏ hơn hoặc bằng
+            ===     -->     So sánh bằng cả giá trị và kiểu dữ liệu
+            !==     -->     So sánh không bằng cả giá trị và kiểu dữ liệu
+        ```
+    4. Toán tử logic - Logical
+        ```
+            &&      -       And : chỉ cần một thằng false thì tất cả false
+            ||      -       Or  : chỉ cần một thằng true thì tất cả true
+            !       -       Not
+        ```
+    5. Toán tử chuỗi - string operator
+        - có thể sử dụng các toán tử gán
+        - VD:
+            ```js
+                var firstName = 'Thanh'
+                var lastName = 'Thang'
+                // In ra firstName và lastName cùng 1 dòng
+                console.log(firstName + ' ' + lastName)
+            ```
+- Kiểu dữ liệu
+    1. Kiểu dữ liệu nguyên thủy - primitive data
+    ```
+                                Ví dụ
+        - number                var a = 2 
+        - string                var fullName = 'Thanh Thang' (muốn bỏ dấu '' trong chuỗi thì bot thêm dấu/ vd: 'Thanh /'Thang')
+        - boolean               var isSuccess = true
+        - undefined             var age
+        - null                  var isNull = null (có nghĩa là ko có gì)
+        - symbol                var id = Symbol('id')
+    ```
