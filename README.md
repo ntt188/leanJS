@@ -26,10 +26,11 @@
     1. Alert: in ra thông báo
     2. Console: in ra dòng thông báo trong tab console "dùng để debug"
     3. Confirm: hộp thoại xác nhận (chẳng hạn đủ tuổi chưa,...)
-    4. Prompt: cũng như Confirm những có thêm ô input để nhập dữ liêuj
+    4. Prompt: cũng như Confirm những có thêm ô input để nhập dữ liệu
     5. Set timeout: set time để chạy code nằm trong nó
     6. Set interval: cũng như set timeout nhưng nó có tính lặp lại
 - Cách dùng:
+    1. alert("xin chào")
     2. console.log('Bla bla bkla') "in ra dòng chữ thông báo"
         console.warn() "in ra cảnh báo"
         console.erro() "in ra lỗi"
