@@ -387,19 +387,18 @@
         //Lấy phần tử theo index    
             languages[2]
         ```
-* **Làm việc với mảng**
-**(Keyword: javascrip array methods)**
-```js
-var languages = [
-        'Javascrip',
-        'PHP',
-        'Ruby'
-    ]
-var languages2 = [
-        'Dart',
-        'Ruby'
-    ]
-```
+* **Làm việc với mảng** (Keyword: javascrip array methods)
+    ```js
+    var languages = [
+            'Javascrip',
+            'PHP',
+            'Ruby'
+        ]
+    var languages2 = [
+            'Dart',
+            'Ruby'
+        ]
+    ```
 1. To string: chuyển thành string
     ```js
     languages.toString()
@@ -884,3 +883,868 @@ var newCourses = courses.map(courseHandler);
 
             countDown(10);
     ```
+# Callback
+* **Phần 1**
+    - Là hàm(function) được truyền qua một đối số khi gọi hàm khác:
+        1. Là hàm
+        2. Được truyền qua 1 đối số
+    ```js
+    function myFunction(param) {
+        //kiểm tra đối số truyền vào có phải function nếu ko phải thì sẽ lỗi
+        if(typeof param === 'function') {
+            param('Học lập trình');
+        }
+    }
+
+    function myCallBack(value) {
+        console.log('value: ',value)
+    }
+
+    myFunction(myCallBack);
+    //vậy Callback là 1 hàm được gọi trong 1 hàm khác
+    ```
+* **Phần 2**
+    - Là hàm
+    - Truyền qua đối số
+    - Được gọi lại (trong hàm nhận đối số)
+    - Tạo hàm map
+        ```js
+        Array.prototype.myMap = function(cb) {
+            var output = [], lengthArr = this.length;
+
+            for (var i = 0; i < lengthArr; i++){
+                var tam = cb(this[i], i);
+                output.push(tam);
+            }
+
+            return output;
+        }
+
+        // Expected results
+        const numbers = [1, 2, 3];
+
+        console.log(numbers.myMap(function (number) {
+            return number * 2;
+        })) 
+        // Output: [2, 4, 6]
+
+        console.log(numbers.myMap(function (number, index) {
+            return number * index;
+        })) 
+        // Output: [0, 2, 6]
+        ```
+    - Tạo phương thức myEvery như every
+        ```js
+        Array.prototype.myEvery = function(cb) {
+        for(var index in this) {
+            if(this.hasOwnProperty(index)){
+                if(!cb(this[index],index,this)){
+                    return false;
+                }
+            }
+        }
+        return true;
+        }
+
+
+        // Expected results
+
+        // const numbers = [1, 3, 3, 5];
+
+        // console.log(numbers.myEvery(function (number) {
+        //     return number % 2 !== 0;
+        // })); // Output: true
+
+        // console.log(numbers.myEvery(function (number, index) {
+        //     return index % 2 === 0;
+        // })); // Output: false
+
+        // console.log(numbers.myEvery(function (number, index, array) {
+        //     return array.length % 2 === 0;
+        // })); // Output: true
+        ```
+# HTML DOM
+## Document Object Model
+    - Có 3 thành phần chính:
+        1. Element: các thẻ trong HTML
+        2. Attribute: các thuộc tính trong thẻ
+        3. Text: các value trong thẻ
+    1. Element: ID, class, Tag, CSS selector, HTML collection
+        ```js
+        document.getElementById(''); //Trả về một element
+        document.getElementsByClassName(''); //Trả về số nhiều HTMLColection
+        document.getElementsByTagName(''); //Trả về số nhiều HTMLColection
+        document.querySelector(''); //Trả về một element
+        document.querySelectorAll(''); //Trả về số nhiều NodeList
+        ```
+    2. Attribute: Thêm, sửa, xóa
+        - Có 2 cách: truy suất trực tiếp qua element hoặc qua hàm (setAttribute và getAttribute)
+        ```js
+        var headingElement = document.querySelector('h1');
+        //Với truy xuất trực tiếp thì chỉ truy xuất đc các Attribute thuộc element đó
+        headingElement.title = 'Title Text';
+        console.log(headingElement.title);
+        //Với hàm thì ta có thể thêm các thuộc tính khác ngoài của element đó
+        headingElement.setAttribute('data-1','data một');
+        console.log(headingElement.getAttribute('data-1'));
+        ```
+    3. Text: innerText, textContent
+        - innerText: trả về giá trị giống trên trình duyệt
+        - textContent: trả về giá trị nguyên bản mà code làm ra
+        ```js
+        var headingElement = document.querySelector('h1');
+
+        //Lấy ra
+            console.log(headingElement.innerText);
+            //hoặc
+            console.log(headingElement.textContent);
+        //sửa
+            headingElement.innerText = "Heading Text";
+            headingElement.textContent = "Heading Text";
+        ```
+## Node properties
+## DOM CSS
+- cách xem các thuocj tính getter và setter để lấy ra các values của css inline
+    ```js
+    var boxElement = document.querySelector('.box');
+    console.log(boxElement.style);// xem các thuộc tính
+    //Lưu ý: chỉ lấy dữ liệu của inline và phải lấy ra đc element node ms dùng đc
+    //set dũ liệu
+        boxElement.style.width = '200px';
+        boxElement.style.height = '200px';
+        boxElement.style.backgroudColor = 'red';
+        //cách viết ngắn gọn
+            Object.assign(boxElement.style, {
+                width : '200px',
+                height : '200px',
+                backgroudColor : 'green',
+            });
+    //get dữ liệu
+        console.log(boxElement.style.backgroudColor);
+    ```
+## ClassList property
+- phải lấy ra element node mới dùng được
+- Dùng để quản lý các class của element
+- add: thêm class vào element
+- contains: kiểm tra xem 1 class có nằm trong element hay ko
+- remove: xóa class khỏi element
+- toggle: thêm hoặc xóa class cho element
+    ```js
+    //Xem các class trong element
+        var boxElement = document.querySelector('.box');
+        console.log(boxElement.classList);
+    //add
+        boxElement.classList.add('red')
+        //hoặc thêm nhiều class boxElement.classList.add('red','blu');
+    //contains
+        console.log(boxElement.classList.contains('red'));
+    //remove
+        boxElement.classList.remove('red');
+    //toggle
+        setTimeout(() => {
+            boxElement.classList.toggle('red');
+        }, 3000);
+    ```
+## DOM events
+* **Đọc các event trên w3 (search: dom event w3)**
+1. Attribute events
+    - viết thẳng sự kiện vào thẻ và thêm 'on' vào đầu và viết js vào trong dấu ""
+    - VD: 
+        <h1 onClick = 'console.log(Math.ramdom())'></h1>
+2. Assign event using the element node
+    ```js
+    var h1Element = document.querySelector('h1');
+    h1Element.onClick = function() {
+        console.log(Math.ramdom());
+    }
+    ```
+* **Các thẻ**
+    ```js
+    <input type="text">
+    <input type="checkbox">
+    <select>
+        <option value="1">1</option>
+        <option value="2">2</option>
+        <option value="3">3</option>
+    </select>
+    ```
+    1. Input /select
+        ```js
+        //Input/select
+        //text
+        var inputElement = document.querySelector('input[type="text"]');
+        //Thực thi sau khi hết target vào nó
+        inputElement.onchange = function(e) {
+            console.log(e.target.value);
+        }
+        //Thực thi cùng lúc hành động
+        inputElement.oninput = function(e) {
+            console.log(e.target.value);
+        }
+
+        //checkbox
+        var inputElement = document.querySelector('input[type="checkbox"]');
+        inputElement.onchange = function(e) {
+            console.log(e.target.checked);
+        }
+
+        //select
+        var inputElement = document.querySelector('select');
+        inputElement.onchange = function(e) {
+            console.log(e.target.value);//trả về giá trị trong thuộc tính chứ ko phải giá trị nhìn thấy
+        }
+        ```
+    2. Key up / down
+        ```js
+        //key up/down
+        var inputElement = document.querySelector('input[type="text"]');
+        inputElement.onkeyup = function(e) {
+            console.log(e.which);//lấy ra phím đang bấm
+
+            switch(e.which) {
+                case 27:
+                    console.log('Exit');
+                    break;
+            }
+        }
+        ```
+1. preventDefault: Loại bỏ hành vi mặc định của trình duyệt trên một thẻ html
+2. stopPropagation: loại bỏ sự kiện nổi bọt
+    - trong đó: nỗi bọt là khi tác động vào con thì sự kiện ở cha cũng đc thực thi
+## Event listener
+* Nếu bạn xử lý 1 event những ko muốn xóa event đó và xử lý không nhiều thao tác thì dùng dom event còn nếu bạn xử lý thêm và xóa event và trong event đó xử lý quá nhiều sự kiện thì dùng event listener
+- file html
+    ```html
+    <button id="btn">Click me!</button>
+    ```
+1. Xử lý nhiều việc khi 1 event xảy ra
+2. Lắng nghe / Hủy bỏ lắng nghe
+    ```js
+    var btn = document.getElementById('btn');
+    //xử lý vs dom event
+        btn.onClick = function() {
+            //Việc 1
+            console.log('Viec 1');
+
+            //Việc 2
+            console.log('Viec 1');
+
+            //Việc 3
+            alert('Viec 1');
+        }
+    //xử lý với event listener
+        function viec1() {
+            console.log('Viec 1');
+        }
+        function viec2() {
+            console.log('Viec 2');
+        }
+        btn.addEventListener('click',viec1);
+        btn.addEventListener('click',viec2);
+        //xóa một event chẳng hạn event1 sau 3s
+        setTimeout(function() {
+            btn.removeEventListener('click',viec1);
+        },3000);
+    ```
+# JSON, Promise, Fetch, Postman
+## JSON
+1. Là 1 định dạng dữ liệu (chuỗi)
+2. JavaScrip Object Notation
+3. JSON: Number, Boolean, Null, Array, Object
+
+* Mã hóa / Giải mã
+* Encode / Decode
+* Stringify: từ javascrip types -> json
+* Parse: từ json -> javascrip types
+    ```js
+    //var json = '["javascrip","PHP"]';
+    var json = '{"name":"Thanh Thang","age":24}';
+
+    //chuyển từ json sang javascrip
+    console.log(JSON.parse(json));
+    //chuyển từ javascrip sang json
+    console.log(JSON.stringify({
+        name: 'Thanh Thang',
+        age: 16
+    }));
+    ```
+## Promise
+* Sync(Đồng bộ)
+* Async(Bất đồng bộ)
+* Nỗi đau
+* Lý thuyết, cách hoạt động
+* Thực hành, ví dụ
+### Sync / Async
+    ```js
+    //Khi in ra theo thứ tự code từ trên xuống là đông bộ
+    console.log(1);
+    console.log(2);
+
+    //Những với trường hợp này là bất đồng bộ(Async )
+    //Viết trước chưa chắc xong trước
+    //Những hàm bất dồng bộ trong trong javascrip: setTimeout, setInterval, fetch, XMLHttpRequest,
+    //file reading, request animation frame
+
+    //javascrip có thuật ngữ Callback để xử lý bất đồng bộ
+
+    setTimeout(function(){
+        console.log(1);
+    },1000);
+    console.log(2);
+
+    ```
+* Promise (pain):Nỗi đau
+    - Callback hell
+    - Pyramid of doom
+### lý thuyết, cách hoạt động
+* là một object constructor đối tượng Promise, truyền vào param là 1 function và function đó đc gọi là Executor là function sẽ đc thực thi khi gọi tới đối tượng Promise và function này luôn được gọi trước cả giả trị được gán. Và Executor này đều trả về 2 tham số(param) là 2 function resolve(thành công) và reject(thất bại)
+* **Các bước:**
+    1. new Promise
+    2. Executor
+* **promise có 3 trạng thái**
+    1. pending
+    2. fulfilled
+    3. rejected
+    ```js
+    var promise = new Promise(
+            //Executor
+            function(resolve, reject) {
+                //Logic
+                //Thành công: resolve()
+                //Thất bại: reject()
+                resolve
+            }
+        );
+    ```
+* **và nó trả về 3 phương thức thường sử dụng**
+    ```js
+    promise
+        .then(function() {
+
+        })
+        .catch(function() {
+
+        })
+        .finally(function() {
+
+        });
+    ```
+#### Lý thuyết chính:
+* Promise là khái niệm sinh ra để xử lý bất đồng bộ. Trước khi có promise thì ta phải xử lý Callback và call bách xảy ra vấn đề là Callback hell nó sẻ bị sâu vào khó nhìn khó hiểu. Nên thằng promise được sinh ra ở bản javascrip mới hơn trong phiên bản es6. và chúng ta có thể dùng để khắc phục Callback hell để giúp chúng ta viết code đỡ sâu và dễ hiểu hơn. Để tạo ra promise thì ta dùng từ khóa new Promise và trong constructor ta truyền vào một Executor function trong Executor function nhận đc 2 tham số 1 là resolve(gọi khi thành công) 2 là reject(gọi khi thất bại) khi sử dụng promise thì đối tượng promise được tạo ra chúng ta sẽ sử dụng qua phương thức .then() Khi promise được resolve và .catch() khi promise được reject.
+
+* Promise làm theo tuần tự string là từ trên xuống
+- VD: nêu phương thức then() trước trả về(return) về một giá trị nào đó thì then() sau nó nhận được chính tham số trả về đó và thực thi liền then() sau. còn nếu then() trước trả về(return) một promise mới thì then() sau phải chờ then() trước thực thi xong ms được thực thi.
+    ```js
+    promise
+        .then(function() {
+            return new Promise(function(resolve){
+                setTimeout(function() {
+                    resolve([1,2,3]);
+                }, 3000);
+            })
+        })
+        .then(function(data) {
+            console.log(data);
+        })
+        .catch(function() {
+
+        })
+        .finally(function() {
+
+        });
+    ```
+    - Áp dụng vào bài toán cứ sau 1s thì in ra lân lượt 1, 2, 3, ...
+        ```js
+        function sleep(ms) {
+            return new Promise((resolve) => {
+                setTimeout(resolve, ms)
+            });
+        }
+
+        sleep(1000)
+            .then(function() {
+                console.log(1);
+                return sleep(1000);
+            })
+            .then(function() {
+                console.log(2);
+                return sleep(1000);
+            })
+            .then(function() {
+                console.log(3);
+                return sleep(1000);
+            })
+        ```
+    
+### promise methods(resolve,reject,all)
+- bắt lỗi reject được hiểu đơn giản là khi một promise bị reject thì các then() bị ngắt không đc thực thi.
+- VD:
+    ```js
+    sleep(1000)
+        .then(function() {
+            console.log(1);
+            return sleep(1000);
+        })
+        .then(function() {
+            console.log(2);
+            return new Promise(function(resolve,reject){
+                reject("có lỗi");
+            });
+        })
+        .then(function() {
+            console.log(3);
+            return sleep(1000);
+        })
+        .catch(function(err){
+            console.log(err);
+        }) ;
+    ```
+- theo vd trên thì khi in ra 1 và 2 thì gặp lỗi thì sẽ bỏ qua việc in 3 mà nhảy xuống phương thức catch() và trả về lỗi.
+1. Promise.resolve: chỉ dùng khi bạn chắc chắn promise chỉ trả về resolve
+    ```js
+    var promiseResolve = Promise.resolve('Success');
+    promiseResolve
+        .then(function(result) {
+            console.log('result: ', result);
+        })
+        .catch(function(err) {
+            console.log('Error: ', err);
+        });
+    ```
+- 100% chỉ thực thi .then(), .catch() chỉ thực thi khi trong .then() trả về một promise reject
+2. Promise.reject: chỉ dùng khi bạn chắc chắn promise chỉ trả về reject
+    ```js
+    var promiseReject = Promise.reject('Error');
+    promiseReject
+        .then(function(result) {
+            console.log('result: ', result);
+        })
+        .catch(function(err) {
+            console.log('Error: ', err);
+        });
+    ```
+- 100% chỉ thực thi .catch()
+3. Promise.all: dùng khi bạn muốn 2 hoặc nhiều promise chạy cùng lúc ko cần đợi promise khác chạy xong mới thực thi đỡ phải mất thêm time chờ đợi.
+- VD:
+    ```js
+    var promise1 = new Promise(
+    function(resolve) {
+        setTimeout(function() {
+            resolve([1]);
+        },2000);
+    }
+    );
+    var promise2 = new Promise(
+        function(resolve) {
+            setTimeout(function() {
+                resolve([2, 3]);
+            },2000);
+        }
+    );
+    Promise.all([promise1,promise2])
+        .then(function(result) {
+            var result1 = result[0];
+            var result2 = result[1];
+            console.log(result1.concat(result2));
+        });
+    ```
+- thì chỉ mất 5s để chạy 2 tiến trình thay vì mất đến 7s nếu làm từng cái một
+### promise example
+- bài toán xử lý trong phần comment một bài viết
+    ```js
+    var users = [
+        {
+            id: 1,
+            name: "Thanh Thang"
+        },
+        {
+            id: 2,
+            name: "Son Dang"
+        },
+        {
+            id: 3,
+            name: "Thanh Thua"
+        }
+    ];
+
+    var comments = [
+        {
+            id: 1,
+            user_id: 1,
+            content: "ra video di"
+        },
+        {
+            id: 2,
+            user_id: 2,
+            content: "ra roi ra roi"
+        }
+    ];
+
+    //1. lấy comment
+    //2. từ comment lấy ra user_id,
+    //từ user_id lấy ra user tương ứng
+
+    //fake AIP (mô phỏng hàm thực hiện gọi qua thằng back-end trả về dừ liệu)
+    function getComments() {
+        return new Promise((resolve, reject) => {
+            setTimeout(() => {
+                resolve(comments);
+            },1000);
+        });
+    }
+
+    function getUsersByIds(userIds) {
+        return new Promise((resolve) {
+            var result = users.filter((user) => {
+                return userIds.includes(user.id)
+            });
+            setTimeout(() => {
+                resolve(resolve);
+            },1000);
+        });
+    }
+
+    getComments()
+        .then((comments) => {
+            var userIds = comments.map((comment) => {
+                return comment.user_id;
+            });
+
+            return getUsersByIds(userIds)
+                    .then((users) => {
+                        return {
+                            users: users,
+                            comments: comments
+                        };
+                    });
+        })
+        .then((data){
+            var commentBlock = document.getElementById('comment-block');
+
+            var html = '';
+            data.comments.forEach((comment) => {
+                var user = data.users.find((user) {
+                    return user.id === comment.user_id;
+                });
+                html += '<li>${user.name}: ${comment.content}</li>';
+            });
+
+            commentBlock.innerHTML = html;
+        });
+    ```
+- Tạo 1 thẻ ul trong file html để nhận các giá trị
+    ```html
+        <ul id="comment-block"></ul>
+    ```
+## Fetch
+* Dùng để gọi API từ lưu trữ back-end để trình chiếu lên Front-end
+* API(url) -> application programing interface (Cổng giao tiếp các phần mềm)
+
+* Back-end -> API(URL) -> Fetch -> JSON/XML -> JSON.parse -> javascrip types -> render ra giao diện với HTML
+### cách sử dụng
+    ```js
+    var postAPI='https://jsonplaceholder.typicode.com/posts';
+    fetch(postAPI)
+        .then((response) => {
+            return response.json();
+            //hàm này thực hiện JSON.parse: JSON ->javascrip types
+        })
+        .then((posts) {
+            //console.log(posts);
+            //xử lý hiển thị lên giao diện
+            //đầu tiên tạp ra một mảng mới chứa thêm các thẻ html
+            var htmls = posts.map((post) => {
+                return `<li>
+                    <h2>${post.title}</h2>
+                    <p>${post.body}</p>
+                </li>
+                `;
+            });
+
+            //khi có mảng mới ta chuyển mảng đó thành một chuỗi ko ngăn cách
+            var html = htmls.join('');
+            document.getElementById('post-block').innerHTML = html;
+        });
+    ```
+- Tạo một thẻ ul có id post-block
+    ```html
+    <ul id="post-block"></ul>
+    ```
+### JSON server: fake api server / MOCK API
+* coi tại link
+* https://fullstack.edu.vn/learning/javascript-co-ban?id=5d91ae2c-f665-4b2c-8c8e-11d7f9a6eac9
+* khởi động api fake dùng "npm start"
+### CRUD
+- creat: Tạo mới       -> POST 
+- read: Lấy dữ liệu    -> GET 
+- Update: Chỉnh sửa    -> PUT / PATCH
+- Delete: Xóa          -> DELETE
+* **search cách sử dụng fetch tùy trường hợp CRUD: fetch w3, fetch mozilla**
+## Postman
+* Sử dụng Postman làm việc với REST API
+* Postman mô phỏng và test fake api cho trình duyệt
+    - https://fullstack.edu.vn/learning/javascript-co-ban?id=61546753-d397-43ef-b948-ec7f3b3fd880
+# ECMAScrip 6+
+1. **let, const**
+2. **Template Literals**
+3. **Multi-line String**
+4. **Arrow function**
+5. **Classes**
+6. **Enhanced object literals**
+7. **Default parameter value**
+8. **Destructuring**
+9. **Rest parameters**
+10. **Spread**
+11. **Tagged Template literal**
+12. **Modules**
+13. **Optional chaining (?.)**
+
+1. **let, const**
+    1. Var / let, const: Scope, Hosting
+    2. Const / var, let: Assignment
+
+    - Code block: if else, loop, {}, ...
+    - var có thể gọi bên trong scope và bên ngoài scope nhưng let và const chỉ gọi bên trong scope
+    - var hỗ trợ hosting những 2 thằng kia ko hỗ trợ
+
+    - const ko thể gán lại được nhưng thuộc tính của nó thì có thể
+
+    - code thuần: Var
+    - babel: let, const
+        - Khi định nghĩa biến và không gán lại biến đó: Const
+        - Khi cần gán lại cho biến: Let
+        ```js
+        if (true) {
+            var course = 'javascrip'
+        }
+        ```
+2. **Template Literals**
+    ```js
+    const courseName = 'Javascrip';
+    const courseName2 = 'PHP';
+    // nếu  ko dùng es6:const description = 'course name: ' + courseName;
+    // ES6: 
+        const description = `course name: ${courseName} ${courseName2}`;
+        //nếu muốn thêm ký tự đặc biệt bên trong thì thêm dấu \ trước ký tự đặc biệt
+    ```
+3. **Multi-line String**
+    ```js
+    //ko dùng
+    const lines = 'Line 1\nLine 2';
+    const.log(lines);
+    //có dùng
+    const lines = `Line 1
+    Line 2
+    Line 3`;
+    const.log(lines);
+    ```
+4. **Arrow function**
+    ```js
+    //ko dùng
+    const sum = function(a,b) {
+        return a + b;
+    }
+    //có dùng
+    const sum = (a,b) => a + b;
+    //ko thể dùng là constructor function
+    ```
+5. **Classes**
+    ```js
+    //đơn giản là cách viết khác của constructor function
+    /*
+        function Course(name, price) {
+            this.name = name;
+            this.price = price;
+
+            this.getName = () => this.name;
+        }
+    */
+
+    class Course {
+        constructor(name, price) {
+            this.name = name;
+            this.price = price;
+        }
+
+        getName() {
+            return this.name;
+        }
+
+        getPrice() {
+            return this.price;
+        }
+
+        run() {
+            const isSuccess = false;
+
+            if(...) {
+                isSuccess = true;
+            }
+        }
+    }
+
+    const course = new Course()
+    ```
+6. **Enhanced object literals**
+    1. Định nghĩa key: value cho object
+    2. Định nghĩa method cho object
+    3. Định nghĩa key cho object dưới dạng biến
+    ```js
+    var name = 'JavaScrip';
+    var price = 1000;
+
+    /*
+        var course = {
+            name: name,
+            price: price,
+            getName: function() {
+                return name;
+            }
+        }
+    */
+    //ES6
+        var course = {
+            name,
+            price,
+            getName() {
+                return name;
+            }
+        }
+    
+    var fieldName = 'name';
+    var fieldPrice = 'price';
+
+    const course = {
+        [fieldName]: 'javascrip',
+        [fieldPrice]: 1000
+    }
+    ```
+7. **Default parameter value**
+    ```js
+    //khi ko truyền giá trị(param) thì chúng ta phải tạo giá trị mặc định cho hàm
+    /*
+        function logger(log) {
+            if(typeof log === 'undefined') {
+                log = 'giá trị mặc định';
+            }
+            console.log(log);
+        }
+        logger(undefined);
+    */
+    //Với ES6
+        function logger(log = 'giá trị mặc định') {
+            console.log(log);
+        }
+        logger(undefined);
+    ```
+8. **Destructuring**
+    ```js
+    //Phân rã
+
+    var array = ['javascrip', 'PHP', 'Ruby'];
+
+    /*
+        var a = array[0];
+        var b = array[1];
+        var c = array[2];
+    */
+    //ES6
+        var [a,b,c] = array;
+
+        console.log(a,b,c);
+
+        var course = {
+            name: 'javascrip',
+            price: 1000,
+            img: 'image-address',
+            children: {
+                name: 'ReactJS'
+            }
+        }
+
+        var {name: parentName, children: {name}} = course;
+        console.log(parentName);
+        console.log(name);
+    ```
+9. **Rest parameters**
+    ```js
+    //cũng như 8 nhưng lấy ra những thằng con lại
+    var [a, ...rest] = array;
+
+    console.log(a);
+    console.log(rest);
+
+    var {name, ...rest} = course;
+    console.log(rest);
+
+    //ta cũng có thể tạo hàm truyền nhiều tham số  cùng kiểu bằng rest
+    function logger(...param){
+
+    }
+    ```
+10. **Spread**
+    ```js
+    //Nối thêm dữ liệu khác vs rest là lấy các phần từ còn lậy thì Spread
+    //Chẳng hạn như nối mảng hay object
+    //VD:
+        var arr1 = ['java', 'PHP'];
+        var arr2 = ['C', 'javascrip', 'python'];
+        var arr3 = [...arr1, ...arr]
+        console.log(arr3);
+
+        var obj1 = {
+            name: 'javascrip'
+        }
+        var obj2 = {
+            price: 1000;
+        }
+        var obj3 = {
+            ...obj1,
+            ...obj2
+        }
+
+        var array = ['javascrip', 'PHP', 'Ruby'];
+
+        function logger(...rest) //đây là rest
+        { 
+            for(var i = 0; i < rest.length; i++) {
+                Console.log(rest[i]);
+            }
+        }
+
+        logger(...array) //Đây là Spread
+    ```
+11. **Tagged Template literal**
+    ```js
+    function highlight(...rest) {
+        console.log(rest);
+    }
+    var brand = 'f8';
+    var course = 'javascrip';
+    highlight `Học lập trình ${course} tại ${brand}!`;
+    ```
+12. **Modules**
+- Import/ Export
+- tại thẻ script thêm type = 'modul'thì ms dùng đc
+- mỗi Modules chỉ có một export default nhưng lại có thể có nhiều export thường và export sẽ được nhận lại bằng Destructuring
+    - Nếu ta import bằng 
+        ```js
+        import logger from './logger.js';
+        ```
+    thì là ta đang import của export default
+
+    - Nếu ta import bằng Destructuring
+        ```js
+        import {
+            TYPE_LOG,
+            TYPE_WARN,
+            TYPE_ERROR
+        } from './constants.js';
+        ```
+    thì là ta đang import của export thường
+*/
+13. **Optional chaining (?.)**
+- dùng để check khi ko chắc chắn 1 cái key nào đó có tồn tại hay ko
+
+## Babel
+# Polyfill
