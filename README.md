@@ -31,13 +31,9 @@
     6. Set interval: cũng như set timeout nhưng nó có tính lặp lại
 - Cách dùng:
     2. console.log('Bla bla bkla') "in ra dòng chữ thông báo"
-        console.warn() "in ra cảnh báo"
-        console.erro() "in ra lỗi"
+        - console.warn() "in ra cảnh báo"
+        - console.erro() "in ra lỗi"
     3. confirm('Xác nhận bản đủ tưởng')
     4. prompt('Xác nhận bản đủ tưởng')
-    5. setTimeout(function () {
-            alert('Thông báo')
-        }, 1000)
-    6. setInterval(function () {
-            console.log('Day là log ')
-        }, 1000)
+    5. setTimeout(function () {alert('Thông báo')}, 1000)
+    6. setInterval(function () {console.log('Day là log ')}, 1000)
