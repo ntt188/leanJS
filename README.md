@@ -1746,5 +1746,6 @@ var newCourses = courses.map(courseHandler);
 13. **Optional chaining (?.)**
 - dùng để check khi ko chắc chắn 1 cái key nào đó có tồn tại hay ko
 
-## Babel
+## Babel:
+- https://babeljs.io/repl#?browsers=&build=&builtIns=false&corejs=3.6&spec=false&loose=false&code_lz=MYewdgzgLgBApgGzgWzmWBeGAeAFgRgD4AJRBEGAdRACcEATbAegMKA&debug=false&forceAllTransforms=false&modules=false&shippedProposals=false&circleciRepo=&evaluate=false&fileSize=false&timeTravel=false&sourceType=module&lineWrap=true&presets=es2015%2Creact&prettier=false&targets=&version=7.15.6&externalPlugins=&assumptions=%7B%7D
 # Polyfill
